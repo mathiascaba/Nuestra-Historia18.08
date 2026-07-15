@@ -731,16 +731,20 @@ body {
 .hidden-message {
   text-align: center;
   margin-top: 40px;
-  font-size: 0.6rem;
-  color: transparent;
-  cursor: default;
-  transition: color 0.6s ease;
-  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.6s ease;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
 }
 
-.hidden-message:hover {
+.hidden-message:hover,
+.hidden-message:active {
   color: var(--accent);
+  opacity: 1;
   letter-spacing: 0.5em;
+  font-size: 0.85rem;
 }
 
 /* ====================================================================
