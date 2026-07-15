@@ -1,8 +1,5 @@
 // ======================================================================
-// FONDO ANIMADO COMPARTIDO
-// Chispas/luces flotando (canvas #particles) + resplandor que sigue
-// el cursor (#cursor-glow). Se usa igual en portada.html e index.html.
-// No hace falta tocar este archivo.
+// FONDO ANIMADO — Campo de estrellas + resplandor cursor
 // ======================================================================
 
 function initBackground(){
@@ -12,67 +9,114 @@ function initBackground(){
   const ctx = canvas.getContext('2d');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let w, h, particles;
+  let w, h, stars, shootingStars;
 
   function resize(){
     w = canvas.width  = window.innerWidth;
     h = canvas.height = window.innerHeight;
+    makeStars();
   }
 
-  function makeParticles(){
-    const count = Math.max(24, Math.floor((w * h) / 42000));
-    particles = Array.from({ length: count }, () => spawn());
-  }
-
-  function spawn(y){
-    const palette = ['rgba(216,30,44,', 'rgba(201,161,91,', 'rgba(242,237,231,'];
-    return {
+  function makeStars(){
+    const count = Math.max(120, Math.floor((w * h) / 5000));
+    stars = Array.from({ length: count }, () => ({
       x: Math.random() * w,
-      y: y !== undefined ? y : Math.random() * h,
-      r: Math.random() * 1.8 + 0.6,
-      speed: Math.random() * 0.35 + 0.08,
-      drift: (Math.random() - 0.5) * 0.3,
-      alpha: Math.random() * 0.5 + 0.15,
-      flicker: Math.random() * 0.02 + 0.005,
-      color: palette[Math.floor(Math.random() * palette.length)]
-    };
+      y: Math.random() * h,
+      r: Math.random() * 1.5 + 0.3,
+      alpha: Math.random() * 0.8 + 0.2,
+      twinkleSpeed: Math.random() * 0.015 + 0.005,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      color: Math.random() > 0.85
+        ? 'rgba(201, 169, 98,'   // doradas
+        : Math.random() > 0.7
+          ? 'rgba(180, 200, 255,' // azuladas
+          : 'rgba(245, 242, 237,' // blancas
+    }));
+    shootingStars = [];
   }
+
+  function spawnShootingStar(){
+    if (shootingStars.length > 2) return;
+    if (Math.random() > 0.003) return;
+    shootingStars.push({
+      x: Math.random() * w * 0.8,
+      y: Math.random() * h * 0.4,
+      len: Math.random() * 80 + 40,
+      speed: Math.random() * 8 + 6,
+      alpha: 1,
+      angle: Math.PI / 4 + (Math.random() - 0.5) * 0.3
+    });
+  }
+
+  let time = 0;
 
   function drawFrame(){
     ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
+    time += 0.016;
+
+    // Estrellas titilantes
+    stars.forEach(s => {
+      const twinkle = Math.sin(time * s.twinkleSpeed * 60 + s.twinkleOffset);
+      const alpha = s.alpha * (0.6 + twinkle * 0.4);
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.color + Math.max(0.1, alpha) + ')';
       ctx.fill();
+
+      // Brillo sutil en estrellas grandes
+      if (s.r > 1.2){
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+        ctx.fillStyle = s.color + (alpha * 0.08) + ')';
+        ctx.fill();
+      }
+    });
+
+    // Estrellas fugaces
+    spawnShootingStar();
+    shootingStars = shootingStars.filter(ss => {
+      ss.x += Math.cos(ss.angle) * ss.speed;
+      ss.y += Math.sin(ss.angle) * ss.speed;
+      ss.alpha -= 0.015;
+
+      if (ss.alpha <= 0) return false;
+
+      ctx.beginPath();
+      ctx.moveTo(ss.x, ss.y);
+      ctx.lineTo(
+        ss.x - Math.cos(ss.angle) * ss.len,
+        ss.y - Math.sin(ss.angle) * ss.len
+      );
+      const grad = ctx.createLinearGradient(
+        ss.x, ss.y,
+        ss.x - Math.cos(ss.angle) * ss.len,
+        ss.y - Math.sin(ss.angle) * ss.len
+      );
+      grad.addColorStop(0, `rgba(245, 242, 237, ${ss.alpha})`);
+      grad.addColorStop(1, 'rgba(245, 242, 237, 0)');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      return true;
     });
   }
 
   function tick(){
-    particles.forEach(p => {
-      p.y -= p.speed;
-      p.x += p.drift;
-      p.alpha += (Math.random() - 0.5) * p.flicker;
-      p.alpha = Math.max(0.05, Math.min(0.65, p.alpha));
-      if (p.y < -10){
-        Object.assign(p, spawn(h + 10));
-      }
-    });
     drawFrame();
     requestAnimationFrame(tick);
   }
 
   resize();
-  makeParticles();
-  window.addEventListener('resize', () => { resize(); makeParticles(); });
+  window.addEventListener('resize', resize);
 
   if (!reduceMotion){
     requestAnimationFrame(tick);
   } else {
-    drawFrame(); // un solo fotograma estático, sin animar
+    drawFrame();
   }
 
-  // -------------------- resplandor que sigue el cursor --------------------
+  // -------------------- resplandor cursor --------------------
   const cursorGlow = document.getElementById('cursor-glow');
   if (cursorGlow && !reduceMotion){
     let targetX = window.innerWidth / 2;
