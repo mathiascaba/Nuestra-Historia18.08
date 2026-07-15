@@ -159,4 +159,27 @@ document.addEventListener('DOMContentLoaded', function(){
       observer.observe(frame);
     });
   }
+
+  // --------------------------------------------------------------
+  // Mensaje secreto
+  // --------------------------------------------------------------
+  const secretModal = document.getElementById('secretModal');
+  const secretClose = document.getElementById('secretClose');
+  const hiddenMsg1 = document.getElementById('hiddenMsg1');
+  const hiddenMsg2 = document.getElementById('hiddenMsg2');
+
+  function openSecret(){
+    secretModal.classList.add('active');
+  }
+
+  function closeSecret(){
+    secretModal.classList.remove('active');
+  }
+
+  if (hiddenMsg1) hiddenMsg1.addEventListener('click', openSecret);
+  if (hiddenMsg2) hiddenMsg2.addEventListener('click', openSecret);
+  if (secretClose) secretClose.addEventListener('click', closeSecret);
+  if (secretModal) secretModal.addEventListener('click', function(e){
+    if (e.target === secretModal) closeSecret();
+  });
 });

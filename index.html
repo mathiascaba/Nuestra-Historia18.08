@@ -172,7 +172,7 @@
     </div>
 
     <p class="signoff">Gracias por seguir eligiéndome <span class="heart">♥</span> — M.</p>
-    <p class="hidden-message" title="Gracias por enseñarme a amar.">♥</p>
+    <p class="hidden-message" id="hiddenMsg1">♥</p>
   </div>
 </section>
 
@@ -264,9 +264,17 @@
     </div>
 
     <p class="signoff">Gracias por todo lo que fuimos <span class="heart">♥</span> — M.</p>
-    <p class="hidden-message" title="Gracias por enseñarme a amar.">♥</p>
+    <p class="hidden-message" id="hiddenMsg2">♥</p>
   </div>
 </section>
+
+<!-- Mensaje oculto modal -->
+<div class="secret-modal" id="secretModal">
+  <div class="secret-modal-content">
+    <p class="secret-text">Gracias por enseñarme a amar.</p>
+    <button class="secret-close" id="secretClose">♥</button>
+  </div>
+</div>
 
 <!-- Reproductor de música -->
 <audio id="bgMusic" src="cancion.mp3" loop></audio>
