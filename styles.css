@@ -801,6 +801,15 @@ body {
   color: var(--accent);
 }
 
+.secret-footer {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  margin-bottom: 32px;
+}
+
 /* ====================================================================
    MÓVIL — Responsive completo
 ===================================================================== */
