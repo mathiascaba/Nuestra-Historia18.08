@@ -1,0 +1,892 @@
+/* ====================================================================
+   ESTILOS COMPARTIDOS — Mathias & Angelina
+   Diseño elegante minimalista + móvil optimizado
+===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap');
+
+:root {
+  --bg: #0a0a0c;
+  --bg-soft: #121215;
+  --bg-card: #1a1a1f;
+  --accent: #c9a962;
+  --accent-soft: rgba(201, 169, 98, 0.15);
+  --text: #f5f2ed;
+  --text-muted: #8a8580;
+  --text-dim: #5a5652;
+  --border: rgba(245, 242, 237, 0.08);
+  --border-hover: rgba(201, 169, 98, 0.3);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Tipografías ---------- */
+.display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.mono {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Fondo atmosférico ---------- */
+.stage-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stage-glow::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 50% 40% at 20% 30%, rgba(201, 169, 98, 0.06), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 80% 70%, rgba(201, 169, 98, 0.04), transparent 70%);
+  animation: ambientDrift 40s ease-in-out infinite alternate;
+}
+
+@keyframes ambientDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(2%, -1%) scale(1.02); }
+  100% { transform: translate(-1%, 2%) scale(0.98); }
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Resplandor cursor */
+#cursor-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 169, 98, 0.1), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  filter: blur(30px);
+}
+
+#cursor-glow.active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-glow::before { animation: none; }
+  #cursor-glow { display: none; }
+}
+
+/* ---------- Botones ---------- */
+.btn-primary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 18px 56px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: -1;
+}
+
+.btn-primary:hover {
+  color: var(--bg);
+}
+
+.btn-primary:hover::before {
+  left: 0;
+}
+
+/* ---------- Portada ---------- */
+#cover {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.cover-eyebrow {
+  color: var(--text-dim);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.3s forwards;
+}
+
+.cover-title {
+  font-size: clamp(3rem, 12vw, 8rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.3em;
+}
+
+.cover-title .word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: riseIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.cover-title .word:nth-child(1) { animation-delay: 0.5s; }
+.cover-title .word.amp {
+  color: var(--accent);
+  font-style: italic;
+  animation-delay: 0.8s;
+}
+.cover-title .word:nth-child(3) { animation-delay: 1.1s; }
+
+@keyframes riseIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.cover-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 40px auto 0;
+  animation: growLine 1.5s ease 1.4s forwards;
+}
+
+@keyframes growLine {
+  to { width: 200px; }
+}
+
+.cover-sub {
+  margin-top: 32px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 400px;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.8s forwards;
+}
+
+.cover-sub strong {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.cover-cta {
+  margin-top: 56px;
+  opacity: 0;
+  animation: fadeIn 1s ease 2.2s forwards;
+}
+
+.cover-hint {
+  margin-top: 24px;
+  color: var(--text-dim);
+  opacity: 0;
+  animation: fadeIn 1s ease 2.6s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-eyebrow, .cover-title .word, .cover-sub, .cover-cta, .cover-hint, .cover-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    width: 200px;
+  }
+}
+
+/* ---------- Pantalla de entrada (gate) ---------- */
+#gate {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  padding: 24px;
+}
+
+.pass {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  padding: 56px 40px;
+  position: relative;
+}
+
+.pass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.pass-eyebrow {
+  color: var(--text-dim);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pass-title {
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  text-align: center;
+  color: var(--text);
+}
+
+.pass-title .amp {
+  color: var(--accent);
+  font-style: italic;
+  margin: 0 0.1em;
+}
+
+.pass-sub {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 14px;
+  margin-bottom: 44px;
+}
+
+.pass-sub strong {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 0 36px;
+}
+
+.gate-question {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#answerInput {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  text-align: center;
+  padding: 18px 20px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#answerInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+#answerInput::placeholder {
+  color: var(--text-dim);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.gate-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.gate-hint span {
+  color: var(--accent);
+}
+
+#gateSubmit {
+  margin-top: 8px;
+  width: 100%;
+}
+
+#gateError {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #c97a6a;
+  min-height: 24px;
+  margin-top: -4px;
+}
+
+/* ---------- Secciones ---------- */
+.scene {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 100px 24px 120px;
+}
+
+.scene-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.scene-eyebrow {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.scene-title {
+  text-align: center;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  margin-bottom: 12px;
+}
+
+.scene-sub {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 70px;
+}
+
+/* ---------- Mensajes ---------- */
+.message-block {
+  max-width: 600px;
+  margin: 0 auto 90px;
+  font-size: 1.1rem;
+  line-height: 2;
+  color: var(--text-muted);
+  font-weight: 300;
+  text-align: center;
+}
+
+.message-block p {
+  margin: 0 0 24px;
+}
+
+.message-block p:last-child {
+  margin-bottom: 0;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 40px;
+}
+
+/* ---------- Labels de sección ---------- */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.section-label .num {
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
+.section-label .line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-label .txt {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* ---------- Timeline / Setlist ---------- */
+.setlist {
+  max-width: 600px;
+  margin: 0 auto 90px;
+  border-top: 1px solid var(--border);
+}
+
+.track {
+  display: flex;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+
+.track:hover {
+  background: var(--accent-soft);
+}
+
+.track-num {
+  color: var(--accent);
+  font-size: 0.75rem;
+  padding-top: 4px;
+  min-width: 28px;
+}
+
+.track-body h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.track-body p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ---------- Galería ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.photo-frame {
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease;
+}
+
+.photo-frame.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-frame:hover {
+  border-color: var(--border-hover);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+  filter: grayscale(20%) brightness(0.95);
+}
+
+.photo-frame:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%) brightness(1);
+}
+
+.photo-frame .ph-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-frame {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .photo-frame:hover img {
+    transform: none;
+  }
+}
+
+/* Galería despedida */
+.gallery-soft .photo-frame {
+  filter: grayscale(40%) brightness(0.85);
+}
+
+.gallery-soft .photo-frame:hover {
+  filter: none;
+}
+
+/* ---------- Reproductor ---------- */
+#musicToggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#musicToggle:hover {
+  border-color: var(--accent);
+  background: var(--bg-card);
+}
+
+#musicToggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#musicToggle.playing {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+  50% { box-shadow: 0 0 0 12px transparent; }
+}
+
+/* ---------- Firma ---------- */
+.signoff {
+  text-align: center;
+  margin-top: 100px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+}
+
+.signoff .heart {
+  color: var(--accent);
+  display: inline-block;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ---------- Letra de canción ---------- */
+.lyrics {
+  max-width: 500px;
+  margin: 0 auto 90px;
+  text-align: center;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.lyrics::before {
+  content: "♫";
+  display: block;
+  font-size: 1.2rem;
+  color: var(--accent);
+  margin-bottom: 28px;
+  opacity: 0.6;
+}
+
+.lyrics .song-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.lyrics .song-artist {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  letter-spacing: 0.1em;
+}
+
+.lyrics .lyric-lines {
+  max-height: 320px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.lyrics .lyric-lines::-webkit-scrollbar {
+  display: none;
+}
+
+.lyrics .lyric-line {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 2.2;
+  margin: 0;
+  transition: color 0.4s ease, transform 0.4s ease, text-shadow 0.4s ease;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.lyrics .lyric-line:hover {
+  color: var(--text-muted);
+  background: rgba(201, 169, 98, 0.05);
+}
+
+.lyrics .lyric-line.active {
+  color: var(--text);
+  transform: scale(1.05);
+  text-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
+}
+
+.lyrics .lyric-line.past {
+  color: var(--text-muted);
+}
+
+.lyrics .lyric-spacer {
+  height: 16px;
+}
+
+/* ====================================================================
+   MÓVIL — Responsive completo
+===================================================================== */
+
+@media (max-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    line-height: 1.75;
+  }
+
+  /* Portada */
+  #cover {
+    padding: 24px 20px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .cover-title {
+    font-size: clamp(2.5rem, 14vw, 4rem);
+    gap: 0 0.2em;
+  }
+
+  .cover-sub {
+    font-size: 0.95rem;
+    padding: 0 12px;
+  }
+
+  .cover-eyebrow {
+    margin-bottom: 28px;
+  }
+
+  .cover-line {
+    margin-top: 28px;
+  }
+
+  /* Gate / Pass */
+  #gate {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 15vh;
+  }
+
+  .pass {
+    padding: 40px 28px;
+  }
+
+  .pass-title {
+    font-size: clamp(1.8rem, 10vw, 2.8rem);
+  }
+
+  .pass-sub {
+    font-size: 0.9rem;
+    margin-bottom: 36px;
+  }
+
+  .gate-question {
+    font-size: 1rem;
+  }
+
+  #answerInput {
+    font-size: 0.95rem;
+    padding: 16px 16px;
+  }
+
+  /* Escenas */
+  .scene {
+    padding: 70px 20px 100px;
+  }
+
+  .scene-title {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+
+  .scene-sub {
+    font-size: 0.9rem;
+    margin-bottom: 50px;
+  }
+
+  .message-block {
+    font-size: 1rem;
+    line-height: 1.9;
+    margin-bottom: 70px;
+    padding: 0 4px;
+  }
+
+  /* Setlist */
+  .track {
+    gap: 16px;
+    padding: 24px 0;
+  }
+
+  .track-body h3 {
+    font-size: 1.35rem;
+  }
+
+  .track-body p {
+    font-size: 0.9rem;
+  }
+
+  /* Galería — 2 columnas en móvil */
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .photo-frame .ph-placeholder {
+    font-size: 0.6rem;
+  }
+
+  /* Labels */
+  .section-label {
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+
+  /* Firma */
+  .signoff {
+    margin-top: 70px;
+    font-size: 0.8rem;
+  }
+
+  /* Letra */
+  .lyrics {
+    padding: 36px 20px;
+    margin-bottom: 70px;
+  }
+
+  .lyrics .lyric-line {
+    font-size: 1.1rem;
+  }
+
+  .lyrics .lyric-lines {
+    max-height: 280px;
+  }
+
+  /* Botón música */
+  #musicToggle {
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+  }
+
+  #musicToggle svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Tablets / pantallas medianas */
+@media (min-width: 601px) and (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .scene {
+    padding: 90px 32px 120px;
+  }
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathias & Angelina</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="stage-glow"></div>
+<canvas id="particles"></canvas>
+<div id="cursor-glow"></div>
+
+<!-- ==================================================================
+     PANTALLA DE ENTRADA
+================================================================== -->
+<section id="gate">
+  <div class="pass">
+    <div class="pass-eyebrow mono">Pase de acceso</div>
+    <h1 class="pass-title display">Mathias <span class="amp">&</span> Angelina</h1>
+    <p class="pass-sub">18.08.2024 🤍💙💜</p>
+
+    <hr class="divider">
+
+    <p class="gate-question">¿Cómo quieres escribir el siguiente capítulo?</p>
+
+    <form class="gate-form" id="gateForm">
+      <input
+        type="text"
+        id="answerInput"
+        placeholder="Escribe tu respuesta"
+        autocomplete="off"
+      >
+      <p class="gate-hint">Escribe <span>UN PASO MAS</span> o <span>UN ULTIMO ADIOS</span></p>
+      <p id="gateError"></p>
+      <button type="submit" id="gateSubmit" class="btn-primary">Continuar</button>
+    </form>
+  </div>
+</section>
+
+<!-- ==================================================================
+     ESCENARIO 1 — SEGUIMOS
+================================================================== -->
+<section id="seguimos" class="scene hidden">
+  <div class="scene-inner">
+    <p class="scene-eyebrow mono">Encore</p>
+    <h2 class="scene-title display">Seguimos</h2>
+    <p class="scene-sub">1 año, 11 meses, y lo que sigue.</p>
+
+    <div class="message-block">
+      <p>
+        Angelina, si estás leyendo esto es porque decidiste seguir aquí,
+        conmigo, y no sabes lo que eso significa para mí. No llegamos a
+        este aniversario de casualidad: llegamos porque los dos elegimos
+        quedarnos incluso en los días difíciles, incluso hoy.
+      </p>
+      <p>
+        1 año y 11 meses no son solo un número. Son todas las
+        conversaciones a las que no le tuvimos miedo, las veces que
+        discutimos y decidimos entendernos en lugar de rendirnos, y
+        la certeza de que sigo eligiéndote a ti, mi rokera, cada vez
+        que puedo elegir.
+      </p>
+      <p>Gracias por quedarte. Vamos por lo que sigue.</p>
+      <p>Con todo mi cariño, Mathias.</p>
+    </div>
+
+    <div class="lyrics" id="lyricsSeguimos">
+      <p class="song-title">Yellow</p>
+      <p class="song-artist">Coldplay</p>
+      <div class="lyric-lines">
+        <p class="lyric-line" data-start="0.0" data-end="3.5">Look at the stars, look how they shine for you</p>
+        <p class="lyric-line" data-start="3.5" data-end="6.0">And everything you do</p>
+        <p class="lyric-line" data-start="6.0" data-end="11.5">Yeah, they were all yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="19.0" data-end="22.5">I came along, I wrote a song for you</p>
+        <p class="lyric-line" data-start="22.5" data-end="25.5">And all the things you do</p>
+        <p class="lyric-line" data-start="25.5" data-end="30.5">And it was called Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="37.0" data-end="40.5">So then I took my turn</p>
+        <p class="lyric-line" data-start="40.5" data-end="43.5">Oh what a thing to have done</p>
+        <p class="lyric-line" data-start="43.5" data-end="48.5">And it was all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="54.0" data-end="58.5">Your skin, oh yeah your skin and bones</p>
+        <p class="lyric-line" data-start="58.5" data-end="62.5">Turn into something beautiful</p>
+        <p class="lyric-line" data-start="62.5" data-end="66.5">You know, you know I love you so</p>
+        <p class="lyric-line" data-start="66.5" data-end="72.0">You know I love you so</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="79.0" data-end="82.5">I swam across, I jumped across for you</p>
+        <p class="lyric-line" data-start="82.5" data-end="85.5">Oh what a thing to do</p>
+        <p class="lyric-line" data-start="85.5" data-end="91.0">'Cause you were all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="98.0" data-end="101.5">I drew a line, I drew a line for you</p>
+        <p class="lyric-line" data-start="101.5" data-end="104.5">Oh what a thing to do</p>
+        <p class="lyric-line" data-start="104.5" data-end="110.0">And it was all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="117.0" data-end="121.5">Your skin, oh yeah your skin and bones</p>
+        <p class="lyric-line" data-start="121.5" data-end="125.5">Turn into something beautiful</p>
+        <p class="lyric-line" data-start="125.5" data-end="129.5">You know, for you I'd bleed myself dry</p>
+        <p class="lyric-line" data-start="129.5" data-end="136.0">For you I'd bleed myself dry</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="143.0" data-end="146.5">It's true, look how they shine for you</p>
+        <p class="lyric-line" data-start="146.5" data-end="149.5">Look how they shine for you</p>
+        <p class="lyric-line" data-start="149.5" data-end="155.0">Look how they shine</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="160.0" data-end="163.5">Look at the stars, look how they shine for you</p>
+        <p class="lyric-line" data-start="163.5" data-end="166.5">And everything you do</p>
+        <p class="lyric-line" data-start="166.5" data-end="172.0">Yeah, they were all yellow</p>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span class="num mono">01</span>
+      <span class="line"></span>
+      <span class="txt">Nuestro setlist</span>
+    </div>
+
+    <div class="setlist">
+      <div class="track">
+        <span class="track-num mono">01</span>
+        <div class="track-body">
+          <h3>El primer beso</h3>
+          <p>Siendo mejores amigos, en medio de un trabajo grupal nos besamos por primera vez.</p>
+        </div>
+      </div>
+
+      <div class="track">
+        <span class="track-num mono">02</span>
+        <div class="track-body">
+          <h3>De amigos a algo más</h3>
+          <p>El momento en que dejamos de fingir que solo éramos mejores amigos.</p>
+        </div>
+      </div>
+
+      <div class="track">
+        <span class="track-num mono">03</span>
+        <div class="track-body">
+          <h3>1 año, 11 meses</h3>
+          <p>Todo lo que construimos día a día, hasta hoy.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span class="num mono">02</span>
+      <span class="line"></span>
+      <span class="txt">Galería</span>
+    </div>
+
+    <div class="gallery" id="galerySeguimos">
+      <div class="photo-frame"><img src="fotos/foto1.jpg" alt="Foto 1" onerror="this.style.display='none'"><div class="ph-placeholder">01</div></div>
+      <div class="photo-frame"><img src="fotos/foto2.jpg" alt="Foto 2" onerror="this.style.display='none'"><div class="ph-placeholder">02</div></div>
+      <div class="photo-frame"><img src="fotos/foto3.jpg" alt="Foto 3" onerror="this.style.display='none'"><div class="ph-placeholder">03</div></div>
+      <div class="photo-frame"><img src="fotos/foto4.jpg" alt="Foto 4" onerror="this.style.display='none'"><div class="ph-placeholder">04</div></div>
+      <div class="photo-frame"><img src="fotos/foto5.jpg" alt="Foto 5" onerror="this.style.display='none'"><div class="ph-placeholder">05</div></div>
+      <div class="photo-frame"><img src="fotos/foto6.jpg" alt="Foto 6" onerror="this.style.display='none'"><div class="ph-placeholder">06</div></div>
+      <div class="photo-frame"><img src="fotos/foto7.jpg" alt="Foto 7" onerror="this.style.display='none'"><div class="ph-placeholder">07</div></div>
+      <div class="photo-frame"><img src="fotos/foto8.jpg" alt="Foto 8" onerror="this.style.display='none'"><div class="ph-placeholder">08</div></div>
+      <div class="photo-frame"><img src="fotos/foto9.jpg" alt="Foto 9" onerror="this.style.display='none'"><div class="ph-placeholder">09</div></div>
+      <div class="photo-frame"><img src="fotos/foto10.jpg" alt="Foto 10" onerror="this.style.display='none'"><div class="ph-placeholder">10</div></div>
+      <div class="photo-frame"><img src="fotos/foto11.jpg" alt="Foto 11" onerror="this.style.display='none'"><div class="ph-placeholder">11</div></div>
+      <div class="photo-frame"><img src="fotos/foto12.jpg" alt="Foto 12" onerror="this.style.display='none'"><div class="ph-placeholder">12</div></div>
+      <div class="photo-frame"><img src="fotos/foto13.jpg" alt="Foto 13" onerror="this.style.display='none'"><div class="ph-placeholder">13</div></div>
+      <div class="photo-frame"><img src="fotos/foto14.jpg" alt="Foto 14" onerror="this.style.display='none'"><div class="ph-placeholder">14</div></div>
+      <div class="photo-frame"><img src="fotos/foto15.jpg" alt="Foto 15" onerror="this.style.display='none'"><div class="ph-placeholder">15</div></div>
+      <div class="photo-frame"><img src="fotos/foto16.jpg" alt="Foto 16" onerror="this.style.display='none'"><div class="ph-placeholder">16</div></div>
+      <div class="photo-frame"><img src="fotos/foto17.jpg" alt="Foto 17" onerror="this.style.display='none'"><div class="ph-placeholder">17</div></div>
+      <div class="photo-frame"><img src="fotos/foto18.jpg" alt="Foto 18" onerror="this.style.display='none'"><div class="ph-placeholder">18</div></div>
+      <div class="photo-frame"><img src="fotos/foto19.jpg" alt="Foto 19" onerror="this.style.display='none'"><div class="ph-placeholder">19</div></div>
+      <div class="photo-frame"><img src="fotos/foto20.jpg" alt="Foto 20" onerror="this.style.display='none'"><div class="ph-placeholder">20</div></div>
+    </div>
+
+    <p class="signoff">Gracias por seguir eligiéndome <span class="heart">♥</span> — M.</p>
+  </div>
+</section>
+
+<!-- ==================================================================
+     ESCENARIO 2 — DESPEDIMOS
+================================================================== -->
+<section id="despedimos" class="scene hidden">
+  <div class="scene-inner">
+    <p class="scene-eyebrow mono">Última función</p>
+    <h2 class="scene-title display">Gracias</h2>
+    <p class="scene-sub">Por 1 año, 10 meses que valieron la pena.</p>
+
+    <div class="message-block">
+      <p>
+        Angelina, si estamos aquí es porque decidimos, con honestidad,
+        que este capítulo se cierra. Y aunque duele, quiero que sepas
+        que nada de lo que vivimos deja de haber sido real ni de haber
+        valido la pena.
+      </p>
+      <p>
+        Gracias por 1 año y 10 meses en los que aprendí lo que es
+        querer a alguien de verdad. Gracias por tu forma de ser, por
+        tu manera de reírte, por dejarme entrar en tu mundo. Todo eso
+        me lo llevo conmigo, y espero haberte dejado algo bueno a ti
+        también.
+      </p>
+      <p>
+        Te deseo lo mejor de corazón, Angelina. Que sigas siendo tan
+        tú, tan rokera, y que lo que venga te trate como mereces.
+      </p>
+      <p>Con cariño y buenos deseos, Mathias.</p>
+    </div>
+
+    <div class="lyrics" id="lyricsDespedidos">
+      <p class="song-title">Yellow</p>
+      <p class="song-artist">Coldplay</p>
+      <div class="lyric-lines">
+        <p class="lyric-line" data-start="0.0" data-end="3.5">Look at the stars, look how they shine for you</p>
+        <p class="lyric-line" data-start="3.5" data-end="6.0">And everything you do</p>
+        <p class="lyric-line" data-start="6.0" data-end="11.5">Yeah, they were all yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="19.0" data-end="22.5">I came along, I wrote a song for you</p>
+        <p class="lyric-line" data-start="22.5" data-end="25.5">And all the things you do</p>
+        <p class="lyric-line" data-start="25.5" data-end="30.5">And it was called Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="37.0" data-end="40.5">So then I took my turn</p>
+        <p class="lyric-line" data-start="40.5" data-end="43.5">Oh what a thing to have done</p>
+        <p class="lyric-line" data-start="43.5" data-end="48.5">And it was all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="54.0" data-end="58.5">Your skin, oh yeah your skin and bones</p>
+        <p class="lyric-line" data-start="58.5" data-end="62.5">Turn into something beautiful</p>
+        <p class="lyric-line" data-start="62.5" data-end="66.5">You know, you know I love you so</p>
+        <p class="lyric-line" data-start="66.5" data-end="72.0">You know I love you so</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="79.0" data-end="82.5">I swam across, I jumped across for you</p>
+        <p class="lyric-line" data-start="82.5" data-end="85.5">Oh what a thing to do</p>
+        <p class="lyric-line" data-start="85.5" data-end="91.0">'Cause you were all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="98.0" data-end="101.5">I drew a line, I drew a line for you</p>
+        <p class="lyric-line" data-start="101.5" data-end="104.5">Oh what a thing to do</p>
+        <p class="lyric-line" data-start="104.5" data-end="110.0">And it was all Yellow</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="117.0" data-end="121.5">Your skin, oh yeah your skin and bones</p>
+        <p class="lyric-line" data-start="121.5" data-end="125.5">Turn into something beautiful</p>
+        <p class="lyric-line" data-start="125.5" data-end="129.5">You know, for you I'd bleed myself dry</p>
+        <p class="lyric-line" data-start="129.5" data-end="136.0">For you I'd bleed myself dry</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="143.0" data-end="146.5">It's true, look how they shine for you</p>
+        <p class="lyric-line" data-start="146.5" data-end="149.5">Look how they shine for you</p>
+        <p class="lyric-line" data-start="149.5" data-end="155.0">Look how they shine</p>
+        <div class="lyric-spacer"></div>
+        <p class="lyric-line" data-start="160.0" data-end="163.5">Look at the stars, look how they shine for you</p>
+        <p class="lyric-line" data-start="163.5" data-end="166.5">And everything you do</p>
+        <p class="lyric-line" data-start="166.5" data-end="172.0">Yeah, they were all yellow</p>
+      </div>
+    </div>
+
+    <div class="section-label">
+      <span class="num mono">01</span>
+      <span class="line"></span>
+      <span class="txt">Algunos recuerdos</span>
+    </div>
+
+    <div class="gallery gallery-soft" id="galeryDespedida">
+      <div class="photo-frame"><img src="fotos/despedida1.jpg" alt="Foto 1" onerror="this.style.display='none'"><div class="ph-placeholder">01</div></div>
+      <div class="photo-frame"><img src="FT 19.jpeg" alt="Foto 2" onerror="this.style.display='none'"><div class="ph-placeholder">02</div></div>
+      <div class="photo-frame"><img src="FT 15 .jpeg" alt="Foto 3" onerror="this.style.display='none'"><div class="ph-placeholder">03</div></div>
+      <div class="photo-frame"><img src="FT 11.jpeg" alt="Foto 4" onerror="this.style.display='none'"><div class="ph-placeholder">04</div></div>
+    </div>
+
+    <p class="signoff">Gracias por todo lo que fuimos <span class="heart">♥</span> — M.</p>
+  </div>
+</section>
+
+<!-- Reproductor de música -->
+<audio id="bgMusic" src="cancion.mp3" loop></audio>
+<button id="musicToggle" aria-label="Reproducir música" title="Música">
+  <svg viewBox="0 0 24 24">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</button>
+
+<script src="background.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
